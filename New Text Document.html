@@ -1,34 +1,51 @@
+<!DOCTYPE html>
 <html>
+<head>
   <title>IPFS Demo</title>
+</head>
+<body>
 
 <h1>IPFS File Upload Demo</h1>
-  <body>
 
-    <form id="form">
-      <input type="file" id="file"> 
-      <button type="submit">Submit</button>
-    </form>
+<form id="form">
+  <input type="file" id="file"> 
+  <button type="submit">Submit</button>
+</form>
 
-    <script src="https://cdn.jsdelivr.net/npm/ipfs@0.66.0/dist/index.min.js"></script>
+<div id="linkContainer"></div>
 
-    <script>
-      const form = document.getElementById('form');
+<script src="https://cdn.jsdelivr.net/npm/ipfs@0.66.1/dist/index.min.js"></script>
+<script>
+  const form = document.getElementById('form');
+  const linkContainer = document.getElementById('linkContainer');
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-        const file = document.getElementById('file').files[0];
+    const file = document.getElementById('file').files[0];
 
-        if (!file) {
-          return alert('no files');
-        }
+    if (!file) {
+      return alert('No files selected');
+    }
 
-        const ipfs = await Ipfs.create();
-        const added = await ipfs.add(file);
-        const ipfsHash = added.cid.toString();
+    try {
+      const ipfs = await Ipfs.create();
+      const added = await ipfs.add(file);
+      const ipfsHash = added.cid.toString();
 
-        alert('https://ipfs.io/ipfs/' + ipfsHash + '\nSUP RANAAA ALLLAAHHHH');
-      });
-    </script>
-  </body>
+      const link = document.createElement('a');
+      link.href = 'https://ipfs.io/ipfs/' + ipfsHash;
+      link.target = '_blank';
+      link.textContent = 'View uploaded file on IPFS';
+
+      linkContainer.innerHTML = ''; // Clear previous content
+      linkContainer.appendChild(link);
+    } catch (error) {
+      console.error('IPFS upload failed:', error);
+      alert('IPFS upload failed');
+    }
+  });
+</script>
+
+</body>
 </html>

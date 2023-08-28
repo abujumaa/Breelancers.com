@@ -82,3 +82,14 @@
     min-height: 235px;
   }
 }
+
+.u-nav-item .u-button-style.u-nav-link {
+  background-color: #478ac9;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.u-nav-item .u-button-style.u-nav-link:hover {
+  background-color: #35589c;
+}

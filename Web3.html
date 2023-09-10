@@ -1,0 +1,37 @@
+<html>
+<body>
+
+<input type="file" id="fileInput">
+
+<script src="https://cdn.jsdelivr.net/npm/web3.storage@4.2.0/dist/bundle.min.js"></script>
+
+<script>
+
+const client = new Web3.Storage({
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDYwNDkxRTg2NGQ3MzBFNDMwMTUzMDM2N2FkMzFlMDIzMDA0MGVFZDEiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2OTA2OTk1NDIwOTcsIm5hbWUiOiJCcmVlbGFuY2VyIn0.l_1zDAwt7FEIDMAebusvhwXVCV9e82Y6dQdQote9w98  
+});
+
+const fileInput = document.getElementById('fileInput');
+
+fileInput.addEventListener('change', async () => {
+
+  const file = fileInput.files[0];
+  
+  if (!file) {
+    console.error('No file selected');
+    return;
+  }
+
+  try {
+    const cid = await client.put([file]);  
+    console.log('Uploaded file with CID:', cid);
+  } catch (error) {
+    console.error(error); 
+  }
+
+});
+
+</script>
+
+</body>
+</html>

@@ -14,12 +14,8 @@
 
 <div id="linkContainer"></div>
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/ipfs@0.66.1/dist/index.min.js"></script> -->
-<script src="https://unpkg.com/helia/dist/index.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/ipfs@0.66.1/dist/index.min.js"></script>
 <script>
-  import { createHelia } from 'helia'
-  import { unixfs } from '@helia/unixfs'
   const form = document.getElementById('form');
   const linkContainer = document.getElementById('linkContainer');
 
@@ -32,46 +28,23 @@
       return alert('No files selected');
     }
 
-  //   try {
-  //     const ipfs = await Ipfs.create();
-  //     const added = await ipfs.add(file);
-  //     const ipfsHash = added.cid.toString();
-
-  //     const link = document.createElement('a');
-  //     link.href = 'https://ipfs.io/ipfs/' + ipfsHash;
-  //     link.target = '_blank';
-  //     link.textContent = 'View uploaded file on IPFS';
-
-  //     linkContainer.innerHTML = ''; // Clear previous content
-  //     linkContainer.appendChild(link);
-  //   } catch (error) {
-  //     console.error('IPFS upload failed:', error);
-  //     alert('IPFS upload failed');
-  //   }
-  // });
     try {
-    // Create Helia IPFS instance
-    const heliad = new Helia();
-    const heliaIpfs = await heliad.connect();
-    
-    // Upload file to Helia IPFS  
-    const added = await heliaIpfs.add(file);
-    const ipfsHash = added.cid.toString();
+      const ipfs = await Ipfs.create();
+      const added = await ipfs.add(file);
+      const ipfsHash = added.cid.toString();
 
-    // View file link
-    const link = document.createElement('a');
-    link.href = `https://${heliad.host}/ipfs/${ipfsHash}`; 
-    link.target = '_blank';
-    link.textContent = 'View uploaded file on Helia IPFS';
-    
-    linkContainer.innerHTML = '';
-    linkContainer.appendChild(link);
+      const link = document.createElement('a');
+      link.href = 'https://ipfs.io/ipfs/' + ipfsHash;
+      link.target = '_blank';
+      link.textContent = 'View uploaded file on IPFS';
 
-  } catch (error) {
-    console.error('Helia IPFS upload failed:', error);
-    alert('Helia IPFS upload failed'); 
-  }
-});
+      linkContainer.innerHTML = ''; // Clear previous content
+      linkContainer.appendChild(link);
+    } catch (error) {
+      console.error('IPFS upload failed:', error);
+      alert('IPFS upload failed');
+    }
+  });
 </script>
 
 </body>
